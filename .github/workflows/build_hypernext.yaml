@@ -4,9 +4,6 @@ on:
     push:
         branches:
           - hypernext
-     # also run every day at 1:00
-    schedule:
-      - cron: "42 01 * * *"
 
 jobs:
     buildandpush:
@@ -51,13 +48,13 @@ jobs:
                 build-args: |
                     ELABFTW_VERSION=${{ github.ref_name }}
                 tags: |
-                    elabftw/elabimg:${{ github.ref_name }}
+                    stanisla/elabimg:${{ github.ref_name }}
 
             # VULN SCAN
             - name: Run Trivy vulnerability scanner
               uses: aquasecurity/trivy-action@master
               with:
-                image-ref: elabftw/elabimg:${{ github.ref_name }}
+                image-ref: stanisla/elabimg:${{ github.ref_name }}
                 format: 'table'
                 exit-code: '1'
                 ignore-unfixed: true
